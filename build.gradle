@@ -1,0 +1,25 @@
+plugins {
+	id 'java'
+	id 'application'
+}
+
+group = 'com.example'
+version = '0.0.1'
+
+java {
+	sourceCompatibility = JavaVersion.VERSION_17
+	targetCompatibility = JavaVersion.VERSION_17
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.apache.kafka:kafka-clients:3.7.0'
+	runtimeOnly 'org.slf4j:slf4j-simple:2.0.16'
+}
+
+application {
+	mainClass = 'com.example.kafka.CdcPrinter'
+}

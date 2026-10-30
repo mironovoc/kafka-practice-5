@@ -1,0 +1,37 @@
+startDelaySeconds: 0
+lowercaseOutputName: true
+lowercaseOutputLabelNames: true
+rules:
+  - pattern: "kafka.connect<type=connect-worker-metrics>([^:]+):"
+    name: kafka_connect_worker_$1
+  - pattern: "kafka.connect<type=connector-task-metrics, connector=(.+), task=(.+)><>status: (.+)"
+    name: kafka_connect_connector_task_status
+    value: 1
+    labels:
+      connector: "$1"
+      task: "$2"
+      status: "$3"
+  - pattern: "kafka.connect<type=connector-task-metrics, connector=(.+), task=(.+)><>([^:]+):"
+    name: kafka_connect_connector_task_$3
+    labels:
+      connector: "$1"
+      task: "$2"
+  - pattern: "kafka.connect<type=source-task-metrics, connector=(.+), task=(.+)><>([^:]+):"
+    name: kafka_connect_source_task_$3
+    labels:
+      connector: "$1"
+      task: "$2"
+  - pattern: "kafka.connect<type=task-error-metrics, connector=(.+), task=(.+)><>([^:]+):"
+    name: kafka_connect_task_error_$3
+    labels:
+      connector: "$1"
+      task: "$2"
+  - pattern: "kafka.producer<type=producer-metrics, client-id=(.+)><>([^:]+):"
+    name: kafka_producer_$2
+    labels:
+      client_id: "$1"
+  - pattern: "kafka.producer<type=producer-topic-metrics, client-id=(.+), topic=(.+)><>([^:]+):"
+    name: kafka_producer_topic_$3
+    labels:
+      client_id: "$1"
+      topic: "$2"
